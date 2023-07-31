@@ -1,44 +1,56 @@
+using FluentAssertions;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using Shrtly.Common;
 using ShrtLy.Api.Controllers;
-using ShrtLy.Api.ViewModels;
-using ShrtLy.BLL;
+using ShrtLy.Api.ResponceMapper;
+using ShrtLy.Application.DTOs;
+using ShrtLy.Application.Features;
+using ShrtLy.Domain;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ShrtLy.UnitTest
 {
     public class ControllerTests
     {
         public LinksController controller;
-        public Mock<IShorteningService> serviceMock;
+        public Mock<IResponseMapper> responceMock;
+        public Mock<IMediator> mediatorMock;
+        private const string _PREFIX = "https://localhost:5001/";
 
-        public static List<LinkViewModel> viewModels = new List<LinkViewModel>
+        public static List<LinkEntity> entities = new List<LinkEntity>
             {
-                new LinkViewModel
+                new LinkEntity
                 {
-                    Id = 1,
+                    Id = Guid.Parse("be27d1eb-a2a4-4590-a69c-cd32e0be6126"),
                     ShortUrl = "short-url-1",
                     Url = "url-1"
                 },
-                new LinkViewModel
+                new LinkEntity
                 {
-                    Id = 2,
+                    Id = Guid.Parse("88829a87-e0db-408f-b8a9-9993862f01b7"),
                     ShortUrl = "short-url-2",
                     Url = "url-2"
                 }
             };
 
-        public static List<LinkDto> linkDtos = new List<LinkDto>
+        public static PaginatedList<LinkDto> linkDtos = new PaginatedList<LinkDto>(1, 1, 1)
             {
                 new LinkDto
                 {
-                    Id = 1,
+                    Id = Guid.Parse("be27d1eb-a2a4-4590-a69c-cd32e0be6126"),
                     ShortUrl = "short-url-1",
                     Url = "url-1"
                 },
                 new LinkDto
                 {
-                    Id = 2,
+                    Id = Guid.Parse("88829a87-e0db-408f-b8a9-9993862f01b7"),
                     ShortUrl = "short-url-2",
                     Url = "url-2"
                 }
@@ -47,40 +59,87 @@ namespace ShrtLy.UnitTest
         [SetUp]
         public void Setup()
         {
-            serviceMock = new Mock<IShorteningService>();
-            controller = new LinksController(serviceMock.Object);
+            responceMock = new Mock<IResponseMapper>();
+            mediatorMock = new Mock<IMediator>();
+            controller = new LinksController(mediatorMock.Object, responceMock.Object);
         }
 
         [Test]
-        public void GetShortLink_ProcessLinkHasBeenCalled()
+        public async Task GetShortLink_ProcessLinkHasBeenCalledAsync()
         {
-            controller.GetShortLink("http://google.com");
 
-            serviceMock.Verify(x => x.ProcessLink("http://google.com"), Times.Once);
+            var str = _PREFIX + "an2jda";
+
+            var mediatrResult = new Result<string> { ResultStatus = ResultStatus.Success, Data = str };
+
+            var expectedResult = new ObjectResult(mediatrResult.Data)
+            {
+                StatusCode = StatusCodes.Status200OK
+            };
+
+            mediatorMock.Setup(m => m.Send(It.IsAny<GetToShortLinkCommand>(), CancellationToken.None))
+                .ReturnsAsync(mediatrResult);
+            responceMock
+           .Setup(m => m.ExecuteAndMapStatus(mediatrResult))
+           .Returns(expectedResult);
+
+            var result = await controller.GetToShortLink("http://google.com");
+
+            result.Should().BeOfType<ObjectResult>()
+            .Which.StatusCode.Should().Be(expectedResult.StatusCode);
+            result.Should().BeOfType<ObjectResult>()
+                .Which.Value.Should().BeEquivalentTo(expectedResult.Value);
         }
 
         [Test]
-        public void GetShortLink_ProcessLinksHasBeenCalled()
+        public async Task GetShortLinks_GetLinksHasBeenCalledAsync()
         {
-            serviceMock.Setup(x => x.GetShortLinks()).Returns(new List<LinkDto>());
+            var paginationDto = new PaginationDto() { Page = 1, PageSize = 1 };
 
-            controller.GetShortLinks();
+            var mediatrResult = new Result<PaginatedList<LinkDto>> { ResultStatus = ResultStatus.Success, Data = linkDtos };
 
-            serviceMock.Verify(x => x.GetShortLinks(), Times.Once);
+            var expectedResult = new ObjectResult(mediatrResult.Data)
+            {
+                StatusCode = StatusCodes.Status200OK
+            };
+
+            mediatorMock.Setup(m => m.Send(It.IsAny<GetAllShortLinksQuery>(), CancellationToken.None)).ReturnsAsync(mediatrResult);
+            responceMock
+           .Setup(m => m.ExecuteAndMapStatus(mediatrResult))
+           .Returns(expectedResult);
+
+            var result  = await controller.GetShortLinks(paginationDto);
+
+            result.Should().BeOfType<ObjectResult>()
+            .Which.StatusCode.Should().Be(expectedResult.StatusCode);
+            result.Should().BeOfType<ObjectResult>()
+                .Which.Value.Should().BeEquivalentTo(expectedResult.Value);
         }
 
         [Test]
-        public void GetShortLinks_AllLinksAreCorrect()
+        public async Task GetShortLinks_AllLinksAreCorrectAsync()
         {
-            serviceMock.Setup(x => x.GetShortLinks()).Returns(new List<LinkDto>());
+            var paginationDto = new PaginationDto() { Page = 1, PageSize = 1 };
 
-            controller.GetShortLinks();
+            var mediatrResult = new Result<PaginatedList<LinkDto>> { ResultStatus = ResultStatus.Success, Data = linkDtos };
+
+            var expectedResult = new ObjectResult(mediatrResult.Data)
+            {
+                StatusCode = StatusCodes.Status200OK
+            };
+
+            mediatorMock.Setup(m => m.Send(It.IsAny<GetAllShortLinksQuery>(), CancellationToken.None)).ReturnsAsync(mediatrResult);
+            responceMock
+            .Setup(m => m.ExecuteAndMapStatus(mediatrResult))
+            .Returns(expectedResult);
+
+            var result = await controller.GetShortLinks(paginationDto);
 
             for (int i = 0; i < linkDtos.Count; i++)
             {
-                Assert.AreEqual(viewModels[i].Id, linkDtos[i].Id);
-                Assert.AreEqual(viewModels[i].ShortUrl, linkDtos[i].ShortUrl);
-                Assert.AreEqual(viewModels[i].Url, linkDtos[i].Url);
+                Assert.AreEqual(entities[i].Id, linkDtos[i].Id);
+                Assert.AreEqual(entities[i].ShortUrl, linkDtos[i].ShortUrl);
+                Assert.AreEqual(entities[i].Url, linkDtos[i].Url);
             }
         }
     }

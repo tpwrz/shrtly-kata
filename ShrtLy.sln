@@ -1,15 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30309.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShrtLy.Api", "src\ShrtLy.Api\ShrtLy.Api.csproj", "{A09FAED2-8908-454F-8E0F-B5CE0D8E2956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShrtLy.BLL", "src\ShrtLy.BLL\ShrtLy.BLL.csproj", "{3FA5D028-AC4C-4668-93DE-4A000DF0D957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShrtLy.Application", "src\ShrtLy.Application\ShrtLy.Application.csproj", "{3FA5D028-AC4C-4668-93DE-4A000DF0D957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShrtLy.DAL", "src\ShrtLy.DAL\ShrtLy.DAL.csproj", "{7D6F78D4-9693-4E33-8711-4031EA541059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShrtLy.Infrastructure", "src\ShrtLy.Infrastructure\ShrtLy.Infrastructure.csproj", "{7D6F78D4-9693-4E33-8711-4031EA541059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShrtLy.UnitTest", "src\ShrtLy.UnitTest\ShrtLy.UnitTest.csproj", "{925BC5A6-7FA5-4023-855E-1DAC2871EF00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShrtLy.UnitTest", "src\ShrtLy.UnitTest\ShrtLy.UnitTest.csproj", "{925BC5A6-7FA5-4023-855E-1DAC2871EF00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shrtly.Domain", "Shrtly.Domain\Shrtly.Domain.csproj", "{472E8FF0-5DBB-427A-9F71-769C36B0621A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shrtly.Contracts", "Shrtly.Contracts\Shrtly.Contracts.csproj", "{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shrtly.Common", "Shrtly.Common\Shrtly.Common.csproj", "{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{925BC5A6-7FA5-4023-855E-1DAC2871EF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925BC5A6-7FA5-4023-855E-1DAC2871EF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{925BC5A6-7FA5-4023-855E-1DAC2871EF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472E8FF0-5DBB-427A-9F71-769C36B0621A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472E8FF0-5DBB-427A-9F71-769C36B0621A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472E8FF0-5DBB-427A-9F71-769C36B0621A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472E8FF0-5DBB-427A-9F71-769C36B0621A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

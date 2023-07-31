@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShrtLy.Api.ViewModels;
-using ShrtLy.BLL;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using ShrtLy.Api.ResponceMapper;
+using ShrtLy.Application.DTOs;
+using ShrtLy.Application.Features;
+using System.Net;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ShrtLy.Api.Controllers
 {
@@ -10,36 +14,31 @@ namespace ShrtLy.Api.Controllers
     [ApiController]
     public class LinksController : ControllerBase
     {
-        private readonly IShorteningService service;
+        private readonly IMediator _mediator;
+        private readonly IResponseMapper _responseMapper;
 
-        public LinksController(IShorteningService service)
+        public LinksController(IMediator mediator, IResponseMapper responseMapper)
         {
-            this.service = service;
+            _mediator = mediator;
+            _responseMapper = responseMapper;
         }
 
         [HttpGet]
-        public string GetShortLink(string url)
+        public async Task<IActionResult> GetToShortLink(string url)
         {
-            return service.ProcessLink(url);
+            var command = new GetToShortLinkCommand(url);
+            var response = await _mediator.Send(command);
+
+            return _responseMapper.ExecuteAndMapStatus(response);
         }
 
         [HttpGet("all")]
-        public IEnumerable<LinkViewModel> GetShortLinks()
+        public async Task<IActionResult> GetShortLinks([FromQuery]PaginationDto pagination)
         {
-            var dtos = service.GetShortLinks();
+            var query = new GetAllShortLinksQuery(pagination);
+            var response = await _mediator.Send(query);
 
-            List<LinkViewModel> viewModels = new List<LinkViewModel>();
-            for (int i = 0; i < dtos.Count(); i++)
-            {
-                var element = dtos.ElementAt(i);
-                viewModels.Add(new LinkViewModel {
-                    Id = element.Id,
-                    ShortUrl = element.ShortUrl,
-                    Url = element.Url
-                });
-            }
-
-            return viewModels;
+            return _responseMapper.ExecuteAndMapStatus(response);
         }
     }
 }
