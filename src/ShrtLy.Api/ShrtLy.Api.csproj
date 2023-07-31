@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shrtly.Common\Shrtly.Common.csproj" />
-    <ProjectReference Include="..\..\Shrtly.Contracts\Shrtly.Contracts.csproj" />
-    <ProjectReference Include="..\..\Shrtly.Domain\Shrtly.Domain.csproj" />
     <ProjectReference Include="..\ShrtLy.Application\ShrtLy.Application.csproj" />
+    <ProjectReference Include="..\Shrtly.Common\Shrtly.Common.csproj" />
+    <ProjectReference Include="..\Shrtly.Contracts\Shrtly.Contracts.csproj" />
+    <ProjectReference Include="..\Shrtly.Domain\Shrtly.Domain.csproj" />
     <ProjectReference Include="..\ShrtLy.Infrastructure\ShrtLy.Infrastructure.csproj" />
   </ItemGroup>
 

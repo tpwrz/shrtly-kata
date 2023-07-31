@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShrtLy.Api\ShrtLy.Api.csproj" />
+    <ProjectReference Include="..\Shrtly.Contracts\Shrtly.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

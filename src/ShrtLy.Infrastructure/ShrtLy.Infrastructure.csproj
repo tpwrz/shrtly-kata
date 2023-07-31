@@ -20,6 +20,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shrtly.Contracts\Shrtly.Contracts.csproj" />
     <ProjectReference Include="..\..\Shrtly.Domain\Shrtly.Domain.csproj" />
+    <ProjectReference Include="..\Shrtly.Common\Shrtly.Common.csproj" />
+    <ProjectReference Include="..\Shrtly.Contracts\Shrtly.Contracts.csproj" />
+    <ProjectReference Include="..\Shrtly.Domain\Shrtly.Domain.csproj" />
   </ItemGroup>
 
 </Project>

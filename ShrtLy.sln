@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShrtLy.Infrastructure", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShrtLy.UnitTest", "src\ShrtLy.UnitTest\ShrtLy.UnitTest.csproj", "{925BC5A6-7FA5-4023-855E-1DAC2871EF00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shrtly.Domain", "Shrtly.Domain\Shrtly.Domain.csproj", "{472E8FF0-5DBB-427A-9F71-769C36B0621A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shrtly.Domain", "src\Shrtly.Domain\Shrtly.Domain.csproj", "{472E8FF0-5DBB-427A-9F71-769C36B0621A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shrtly.Contracts", "Shrtly.Contracts\Shrtly.Contracts.csproj", "{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shrtly.Contracts", "src\Shrtly.Contracts\Shrtly.Contracts.csproj", "{7AFA65C3-AAAB-411F-A3FA-AC84504665C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shrtly.Common", "Shrtly.Common\Shrtly.Common.csproj", "{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shrtly.Common", "src\Shrtly.Common\Shrtly.Common.csproj", "{07BB3D5B-2F0A-4D8F-A039-81B5A1A2CF98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
