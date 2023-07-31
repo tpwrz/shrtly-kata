@@ -21,7 +21,9 @@ var config = builder.Configuration;
 // Add services to the container.
 builder.Host.UseSerilog();
 
+#pragma warning disable CS0618 // Type or member is obsolete
 builder.AddControllersConfig(); // Setup Controllers and their configuration
+#pragma warning restore CS0618 // Type or member is obsolete
 
 builder.Services.AddEndpointsApiExplorer(); // Enable API endpoint exploration for documentation
 

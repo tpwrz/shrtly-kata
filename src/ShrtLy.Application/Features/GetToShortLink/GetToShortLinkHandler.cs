@@ -44,7 +44,7 @@ namespace ShrtLy.Application.Features
                 };
 
             }
-            var link = await _service.ProcessLink(request.Url);
+            var link = _service.ProcessLink(request.Url);
 
             var linkEntity = new LinkEntity
             {

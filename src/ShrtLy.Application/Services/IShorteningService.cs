@@ -5,6 +5,6 @@ namespace ShrtLy.Application.Services
 {
     public interface IShorteningService
     {
-        Task<string> ProcessLink(string url);
+        string ProcessLink(string url);
     }
 }

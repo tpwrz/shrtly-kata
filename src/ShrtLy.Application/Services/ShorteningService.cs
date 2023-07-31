@@ -20,11 +20,10 @@ namespace ShrtLy.Application.Services
             this.repository = repository;
         }
 
-        public async Task<string> ProcessLink(string url)
+        public string ProcessLink(string url)
         {// Test our URL
             if (!Uri.TryCreate(url, UriKind.Absolute, out Uri result))
             {
-                var StatusCode = ResultStatus.BadRequest;
                 return null;
             }
             
